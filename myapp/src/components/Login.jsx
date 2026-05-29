@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -7,24 +8,33 @@ function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginUser = (e) => {
+  const loginUser = async (e) => {
     e.preventDefault();
 
-    const storedUser = JSON.parse(localStorage.getItem("hospitalUser"));
-
-    if (!storedUser) {
-      alert("Please Register First");
+    if (!email || !password) {
+      alert("All Fields Required");
       return;
     }
 
-    if (email === storedUser.email && password === storedUser.password) {
-      alert("Login Successful");
+    try {
+      const response = await axios.post("http://localhost:3000/login", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", response.data.token);
+
+      localStorage.setItem("hospitalUser", JSON.stringify(response.data.user));
 
       setIsLoggedIn(true);
 
+      alert("Login Successful");
+
       navigate("/");
-    } else {
-      alert("Invalid Email or Password");
+    } catch (error) {
+      console.log(error);
+
+      alert(error.response?.data?.message || "Login Failed");
     }
   };
 

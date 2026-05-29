@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 require("dotenv").config();
 
 const app = express();
@@ -62,6 +64,28 @@ app.use((req, res, next) => {
   console.log(`Request Method: ${req.method}`);
   next();
 });
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Access Denied. No Token Provided",
+    });
+  }
+
+  try {
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+
+    req.user = verified;
+
+    next();
+  } catch (error) {
+    res.status(400).json({
+      message: "Invalid Token",
+    });
+  }
+};
 
 let tasks = [];
 let contactMessages = [];
@@ -138,8 +162,20 @@ app.post("/login", async (req, res) => {
       });
     }
 
+    const token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      },
+    );
+
     res.status(200).json({
       message: "Login Successful",
+      token,
       user: {
         id: user._id,
         username: user.username,
@@ -153,11 +189,11 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/tasks", (req, res) => {
+app.get("/tasks", verifyToken, (req, res) => {
   res.json(tasks);
 });
 
-app.post("/tasks", (req, res) => {
+app.post("/tasks", verifyToken, (req, res) => {
   try {
     const { text } = req.body;
 
@@ -185,7 +221,7 @@ app.post("/tasks", (req, res) => {
   }
 });
 
-app.delete("/tasks/:id", (req, res) => {
+app.delete("/tasks/:id", verifyToken, (req, res) => {
   try {
     const id = parseInt(req.params.id);
 
@@ -231,7 +267,7 @@ app.post("/contact", (req, res) => {
   }
 });
 
-app.get("/patients", async (req, res) => {
+app.get("/patients", verifyToken, async (req, res) => {
   try {
     const patients = await Patient.find();
 
@@ -243,7 +279,7 @@ app.get("/patients", async (req, res) => {
   }
 });
 
-app.post("/patients", async (req, res) => {
+app.post("/patients", verifyToken, async (req, res) => {
   try {
     const { name, age, disease } = req.body;
 
@@ -272,7 +308,7 @@ app.post("/patients", async (req, res) => {
   }
 });
 
-app.put("/patients/:id", async (req, res) => {
+app.put("/patients/:id", verifyToken, async (req, res) => {
   try {
     const { name, age, disease } = req.body;
 
@@ -303,7 +339,7 @@ app.put("/patients/:id", async (req, res) => {
   }
 });
 
-app.delete("/patients/:id", async (req, res) => {
+app.delete("/patients/:id", verifyToken, async (req, res) => {
   try {
     const deletedPatient = await Patient.findByIdAndDelete(req.params.id);
 
@@ -328,3 +364,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = app;

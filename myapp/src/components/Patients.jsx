@@ -34,8 +34,19 @@ function Patients() {
   const addPatient = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Please Login First");
+      return;
+    }
+
     try {
-      await axios.post("http://localhost:3000/patients", formData);
+      await axios.post("http://localhost:3000/patients", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       alert("Patient Added Successfully");
 
@@ -48,6 +59,8 @@ function Patients() {
       fetchPatients();
     } catch (error) {
       console.log(error);
+
+      alert(error.response?.data?.message || "Error Adding Patient");
     }
   };
 

@@ -1,32 +1,37 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const registerUser = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
 
-    if (!name || !email || !password) {
+    if (!username || !email || !password) {
       alert("All Fields Required");
       return;
     }
 
-    const userData = {
-      name,
-      email,
-      password,
-    };
+    try {
+      const response = await axios.post("http://localhost:3000/register", {
+        username,
+        email,
+        password,
+      });
 
-    localStorage.setItem("hospitalUser", JSON.stringify(userData));
+      alert(response.data.message);
 
-    alert("Registration Successful");
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
 
-    navigate("/login");
+      alert(error.response?.data?.message || "Registration Failed");
+    }
   };
 
   return (
@@ -37,9 +42,9 @@ function Register() {
         <form onSubmit={registerUser}>
           <input
             type="text"
-            placeholder="Enter Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
 
           <input
