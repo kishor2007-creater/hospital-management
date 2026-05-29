@@ -1,0 +1,572 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+.app-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.top-header {
+  background: #0f172a;
+  color: white;
+  padding: 18px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo h1 {
+  font-size: 34px;
+  color: #7dd3fc;
+  font-weight: bold;
+}
+
+.header-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.header-right input {
+  width: 320px;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+}
+
+.header-right button {
+  padding: 12px 18px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.header-right button:hover {
+  background: #1d4ed8;
+}
+
+.navbar {
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+  padding: 18px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #111827;
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  color: #2563eb;
+}
+
+.logout-btn {
+  padding: 10px 18px;
+  border: none;
+  background: crimson;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.hero {
+  min-height: 80vh;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  padding: 0 8%;
+  color: white;
+}
+
+.hero-content {
+  max-width: 650px;
+}
+
+.hero-content h2 {
+  font-size: 60px;
+  margin-bottom: 20px;
+  color: #38bdf8;
+}
+
+.hero-content p {
+  font-size: 20px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.hero-content button {
+  padding: 14px 28px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-size: 17px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero-content button:hover {
+  background: #1d4ed8;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 70px 8%;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: white;
+  width: 320px;
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+}
+
+.feature-card h3 {
+  margin-bottom: 15px;
+  color: #2563eb;
+}
+
+.feature-card p {
+  line-height: 1.7;
+}
+
+.task-section {
+  width: 85%;
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 80px;
+}
+
+.task-header h2 {
+  font-size: 35px;
+  margin-bottom: 25px;
+  color: #0f172a;
+}
+
+.task-form {
+  display: flex;
+  gap: 15px;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.task-form button {
+  padding: 15px 22px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.task-list {
+  margin-top: 35px;
+}
+
+.task-card {
+  background: #eff6ff;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-card h4 {
+  color: #111827;
+}
+
+.task-card button {
+  background: crimson;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+.empty {
+  text-align: center;
+  color: gray;
+}
+
+.footer {
+  background: #0f172a;
+  color: white;
+  padding-top: 60px;
+  margin-top: 50px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 0 8%;
+}
+
+.footer-box {
+  width: 300px;
+  margin-bottom: 30px;
+}
+
+.footer-box h3 {
+  margin-bottom: 20px;
+  color: #60a5fa;
+}
+
+.footer-box p {
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #334155;
+  margin-top: 30px;
+}
+
+.page-banner {
+  background: #0f172a;
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.page-banner h1 {
+  font-size: 55px;
+  margin-bottom: 20px;
+  color: #38bdf8;
+}
+
+.page-banner p {
+  font-size: 20px;
+}
+
+.auth-container {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.auth-box {
+  width: 420px;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.auth-box h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2563eb;
+  font-size: 32px;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.contact-wrapper {
+  width: 90%;
+  margin: 70px auto;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.contact-info-box,
+.contact-form {
+  flex: 1;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info-box h2,
+.contact-form h2 {
+  margin-bottom: 25px;
+  color: #2563eb;
+}
+
+.contact-info-box p {
+  margin-bottom: 18px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.contact-form textarea {
+  height: 150px;
+  resize: none;
+}
+
+.contact-form button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.success {
+  color: green;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.patient-container {
+  padding: 50px;
+  text-align: center;
+}
+
+.patient-container h2 {
+  color: #0ea5e9;
+  margin-bottom: 30px;
+  font-size: 40px;
+}
+
+.patient-form {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.patient-form input {
+  padding: 14px;
+  width: 220px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.patient-form button {
+  padding: 14px 20px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.patient-list {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.patient-card {
+  width: 280px;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 18px rgba(0, 0, 0, 0.1);
+}
+
+.patient-card h3 {
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+
+.patient-card p {
+  margin-bottom: 10px;
+}
+
+.patient-card button {
+  margin: 5px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.patient-card button:first-of-type {
+  background: orange;
+  color: white;
+}
+
+.patient-card button:last-of-type {
+  background: crimson;
+  color: white;
+}
+
+.doctor-grid,
+.service-grid {
+  width: 90%;
+  margin: 70px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.doctor-card,
+.service-box {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.doctor-content {
+  padding: 25px;
+}
+
+.doctor-content h2 {
+  margin-bottom: 10px;
+}
+
+.doctor-content h4 {
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+
+.doctor-content p {
+  margin-bottom: 20px;
+}
+
+.doctor-content button,
+.service-box button {
+  padding: 12px 20px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.service-box {
+  padding: 35px;
+}
+
+.service-box h2 {
+  margin-bottom: 20px;
+  color: #0ea5e9;
+}
+
+.service-box p {
+  margin-bottom: 25px;
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .hero-content h2 {
+    font-size: 40px;
+  }
+
+  .task-form {
+    flex-direction: column;
+  }
+
+  .header-right {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .header-right input {
+    width: 100%;
+  }
+
+  .navbar {
+    gap: 20px;
+  }
+
+  .contact-wrapper {
+    flex-direction: column;
+  }
+
+  .auth-box {
+    width: 100%;
+  }
+
+  .hero {
+    text-align: center;
+    justify-content: center;
+  }
+}
