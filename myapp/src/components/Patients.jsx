@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_URL = "https://hospital-backend.onrender.com";
+
 function Patients() {
   const [patients, setPatients] = useState([]);
 
@@ -16,7 +18,13 @@ function Patients() {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/patients");
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(`${API_URL}/patients`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setPatients(response.data);
     } catch (error) {
@@ -42,7 +50,7 @@ function Patients() {
     }
 
     try {
-      await axios.post("http://localhost:3000/patients", formData, {
+      await axios.post(`${API_URL}/patients`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

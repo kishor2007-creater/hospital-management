@@ -5,8 +5,6 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-console.log("MONGO_URI:", process.env.MONGO_URI);
-
 const app = express();
 
 app.use(cors());
@@ -67,15 +65,20 @@ app.use((req, res, next) => {
 });
 
 const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization;
+  const authHeader = req.headers.authorization;
 
-  if (!token) {
+  if (!authHeader) {
     return res.status(401).json({
       message: "Access Denied. No Token Provided",
     });
   }
 
   try {
+    // Remove "Bearer " prefix if present
+    const token = authHeader.startsWith("Bearer ")
+      ? authHeader.slice(7)
+      : authHeader;
+
     const verified = jwt.verify(token, process.env.JWT_SECRET);
 
     req.user = verified;
