@@ -11,6 +11,8 @@ import Patients from "./components/Patients";
 import Login from "./components/Login";
 import Register from "./components/Register";
 
+const API_URL = "https://hospital-backend-100y.onrender.com";
+
 function App() {
   const navigate = useNavigate();
 
@@ -34,7 +36,13 @@ function App() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/tasks");
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(`${API_URL}/tasks`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setTasks(response.data);
     } catch (error) {
@@ -57,9 +65,17 @@ function App() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/tasks", {
-        text: task,
-      });
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post(
+        `${API_URL}/tasks`,
+        { text: task },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
       setTasks([...tasks, response.data.task]);
 
@@ -79,7 +95,13 @@ function App() {
     }
 
     try {
-      await axios.delete(`http://localhost:3000/tasks/${id}`);
+      const token = localStorage.getItem("token");
+
+      await axios.delete(`${API_URL}/tasks/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setTasks(tasks.filter((t) => t.id !== id));
     } catch (error) {
@@ -106,6 +128,7 @@ function App() {
 
   const logout = () => {
     localStorage.removeItem("hospitalUser");
+    localStorage.removeItem("token");
 
     setIsLoggedIn(false);
 

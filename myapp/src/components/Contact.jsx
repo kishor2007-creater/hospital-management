@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API_URL = "https://hospital-backend-100y.onrender.com";
+
 function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -21,10 +23,7 @@ function Contact() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/contact",
-        formData,
-      );
+      const response = await axios.post(`${API_URL}/contact`, formData);
 
       setSuccess(response.data.message);
 

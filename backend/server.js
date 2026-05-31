@@ -67,6 +67,8 @@ app.use((req, res, next) => {
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
+  console.log("Authorization Header:", authHeader);
+
   if (!authHeader) {
     return res.status(401).json({
       message: "Access Denied. No Token Provided",
@@ -74,23 +76,28 @@ const verifyToken = (req, res, next) => {
   }
 
   try {
-    // Remove "Bearer " prefix if present
     const token = authHeader.startsWith("Bearer ")
       ? authHeader.slice(7)
       : authHeader;
 
+    console.log("Token Received:", token);
+
     const verified = jwt.verify(token, process.env.JWT_SECRET);
+
+    console.log("Verified User:", verified);
 
     req.user = verified;
 
     next();
   } catch (error) {
-    res.status(400).json({
+    console.log("JWT Error:", error.message);
+
+    return res.status(401).json({
       message: "Invalid Token",
+      error: error.message,
     });
   }
 };
-
 let tasks = [];
 let contactMessages = [];
 
@@ -285,6 +292,8 @@ app.get("/patients", verifyToken, async (req, res) => {
 
 app.post("/patients", verifyToken, async (req, res) => {
   try {
+    console.log("Patient Request Body:", req.body);
+
     const { name, age, disease } = req.body;
 
     if (!name || !age || !disease) {
@@ -294,10 +303,12 @@ app.post("/patients", verifyToken, async (req, res) => {
     }
 
     const newPatient = new Patient({
-      name,
-      age,
-      disease,
+      name: name.trim(),
+      age: Number(age),
+      disease: disease.trim(),
     });
+
+    console.log("Saving Patient:", newPatient);
 
     await newPatient.save();
 
@@ -306,8 +317,11 @@ app.post("/patients", verifyToken, async (req, res) => {
       patient: newPatient,
     });
   } catch (error) {
+    console.log("Patient Save Error:", error);
+
     res.status(500).json({
       message: error.message,
+      error: error,
     });
   }
 });

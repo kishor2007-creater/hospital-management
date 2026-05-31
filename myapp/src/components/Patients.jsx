@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_URL = "https://hospital-backend.onrender.com";
+const API_URL = "https://hospital-backend-100y.onrender.com";
 
 function Patients() {
   const [patients, setPatients] = useState([]);
@@ -50,11 +50,19 @@ function Patients() {
     }
 
     try {
-      await axios.post(`${API_URL}/patients`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      await axios.post(
+        `${API_URL}/patients`,
+        {
+          name: formData.name,
+          age: Number(formData.age),
+          disease: formData.disease,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
       alert("Patient Added Successfully");
 
@@ -88,7 +96,7 @@ function Patients() {
         <input
           type="number"
           name="age"
-          placeholder="Patient Age"
+          placeholder="Age"
           value={formData.age}
           onChange={handleChange}
         />

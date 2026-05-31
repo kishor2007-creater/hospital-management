@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const API_URL = "https://hospital-backend-100y.onrender.com";
+
 function Register() {
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ function Register() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/register", {
+      const response = await axios.post(`${API_URL}/register`, {
         username,
         email,
         password,
